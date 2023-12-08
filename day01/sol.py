@@ -31,10 +31,11 @@ def part2(input: list, digits_dict: dict) -> list:
         nums.append(num)
     return nums
 
-print( sum(part1(input)) )
-digits_spelled_out_with_letters = {
-   'one':   1, 'two':   2, 'three': 3,
-   'four':  4, 'five':  5, 'six': 6,
-   'seven': 7, 'eight': 8, 'nine': 9
-}
-print( sum( part2(input, digits_spelled_out_with_letters) ) )
+if __name__ == '__main__':
+    print( sum(part1(input)) )
+    digits_spelled_out_with_letters = {
+       'one':   1, 'two':   2, 'three': 3,
+       'four':  4, 'five':  5, 'six': 6,
+       'seven': 7, 'eight': 8, 'nine': 9
+    }
+    print( sum( part2(input, digits_spelled_out_with_letters) ) )

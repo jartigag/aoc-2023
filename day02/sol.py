@@ -49,5 +49,6 @@ def play(input: list, is_part_1=True) -> (int, int):
 
     return (sum_of_the_IDs_of_possible_games, power_of_the_IDs_of_possible_games)
 
-print( play(input)[0] )
-print( play(input, is_part_1=False)[1] )
+if __name__ == '__main__':
+    print( play(input)[0] )
+    print( play(input, is_part_1=False)[1] )
