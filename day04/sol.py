@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass, field
 from typing import Set, Iterable
+from collections import Counter
 
 input = [line.strip() for line in open("input").readlines()]
 
@@ -11,7 +12,7 @@ class Card:
     card_id:          int
     winning_numbers:  Set[int]
     numbers_you_have: Set[int]
-            
+
     matches:          int = field(init=False)
     def __post_init__(self):
         self.matches  = len(self.numbers_you_have.intersection(self.winning_numbers))
@@ -23,8 +24,8 @@ class Card:
         return pow(2, self.matches - 1)
 
     @property
-    def awarded_cards(self) -> Iterable[int]:
-        return (self.card_id + n for n in range(1, self.matches + 1))
+    def copies_of_this_card(self) -> Iterable[int]:
+        return [ 1 + self.card_id + m for m in range(self.matches) ]
 
 def parse_pile_of_cards(lines: list) -> Iterable[Card]:
     cards = []
@@ -40,5 +41,17 @@ def part1(input: list) -> list:
     points = [c.points for c in parse_pile_of_cards(input)]
     return points
 
+def part2(input: list) -> list:
+    cards    = {k:v for k,v in enumerate(parse_pile_of_cards(input))}
+    how_many = Counter(cards.keys())
+
+    for card in cards.values():
+        how_many.update(
+            {copy_id: how_many[card.card_id] for copy_id in card.copies_of_this_card}
+        )
+
+    return how_many.values()
+
 if __name__ == '__main__':
     print( sum(part1(input)) )
+    print( sum(part2(input)) )
